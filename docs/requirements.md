@@ -1,79 +1,78 @@
 # Wordle Scoreboard Requirements
 
-**1. User Authentication**
+**Authentication Microservice:**
 
-* The web app shall provide two methods for user registration:
-	+ Facebook sign-up: users can register using their Facebook account
-	+ Email sign-up: users can register using a unique email address and password
-* During Facebook sign-up, the user shall be prompted to choose a unique username, with their Facebook username as the default if available
-* Usernames must be unique across the platform
-* The web app shall store user authentication data securely, using industry-standard encryption and password hashing
+1. The Authentication Microservice shall provide a secure and scalable user registration process that allows users to create an account with a unique username and password.
+2. The Authentication Microservice shall implement a robust password hashing and salting algorithm to protect user passwords and prevent unauthorized access.
+3. The Authentication Microservice shall support multiple authentication protocols, including OAuth 2.0 and JWT, to enable seamless integration with other microservices and external applications.
+4. The Authentication Microservice shall provide a password reset feature that allows users to reset their password in case they forget it, and shall send a password reset link to the user's registered email address.
+5. The Authentication Microservice shall implement a role-based access control (RBAC) system that allows administrators to assign roles to users and control access to sensitive features and data.
+6. The Authentication Microservice shall support multiple authentication factors, including two-factor authentication (2FA) and multi-factor authentication (MFA), to provide an additional layer of security for users.
+7. The Authentication Microservice shall provide a user profile management feature that allows users to edit their profile information, including their username, email address, and password.
+8. The Authentication Microservice shall implement a session management system that allows users to log in and log out of the application, and shall provide a secure and scalable way to manage user sessions.
 
-**2. Score Calculation**
+**Score Microservice:**
 
-* The web app shall calculate user scores based on the number of guesses and a streak bonus
-* The streak bonus shall be calculated manually using a laddered approach:
-	+ Less than 10 days: +0
-	+ 10-30 days: +10
-	+ 30-50 days: +15
-	+ 50-100 days: +20
-	+ 100-200 days: +25
-	+ 200-300 days: +28
-	+ 300+ days: +30
-* The score calculation formula shall be: (6 - number of guesses) * 10 + streak bonus
+1. The Score Microservice shall provide a secure and scalable way to store and retrieve user scores, and shall support multiple score types, including integer and decimal scores.
+2. The Score Microservice shall implement a score calculation algorithm that calculates user scores based on their performance, and shall provide a way to configure the algorithm to support different scoring systems.
+3. The Score Microservice shall provide a score history feature that allows users to view their past scores and track their progress over time.
+4. The Score Microservice shall implement a leaderboard feature that displays the top-scoring users, and shall provide a way to configure the leaderboard to support different scoring systems and ranking algorithms.
+5. The Score Microservice shall provide a score filtering and sorting feature that allows users to filter and sort scores based on different criteria, including score type, date, and user ID.
+6. The Score Microservice shall implement a score export feature that allows users to export their scores in a variety of formats, including CSV and JSON.
+7. The Score Microservice shall provide a score import feature that allows users to import scores from external sources, including CSV and JSON files.
+8. The Score Microservice shall implement a score validation feature that checks user scores for validity and accuracy, and shall provide a way to configure the validation rules to support different scoring systems.
 
-**3. Friend System**
+**Leaderboard Microservice:**
 
-* The web app shall allow users to add friends based on username
-* The web app shall suggest potential Facebook friends if their Facebook account is linked
-* Friend requests shall be sent to the user's email if they've signed up for email notifications
-* Users shall be able to accept or decline friend requests
+1. The Leaderboard Microservice shall provide a secure and scalable way to display and manage leaderboards, and shall support multiple leaderboard types, including global and local leaderboards.
+2. The Leaderboard Microservice shall implement a leaderboard calculation algorithm that calculates the leaderboard rankings based on user scores, and shall provide a way to configure the algorithm to support different scoring systems.
+3. The Leaderboard Microservice shall provide a leaderboard filtering and sorting feature that allows users to filter and sort leaderboards based on different criteria, including score type, date, and user ID.
+4. The Leaderboard Microservice shall implement a leaderboard export feature that allows users to export leaderboards in a variety of formats, including CSV and JSON.
+5. The Leaderboard Microservice shall provide a leaderboard import feature that allows users to import leaderboards from external sources, including CSV and JSON files.
+6. The Leaderboard Microservice shall implement a leaderboard notification feature that sends notifications to users when they are added to or removed from a leaderboard.
+7. The Leaderboard Microservice shall provide a leaderboard configuration feature that allows administrators to configure leaderboard settings, including the leaderboard type, score type, and ranking algorithm.
+8. The Leaderboard Microservice shall implement a leaderboard analytics feature that provides insights and statistics on leaderboard performance and user engagement.
 
-**4. Scoreboard and Feed**
+**Notification Microservice:**
 
-* The web app shall display a worldwide scoreboard, showing the top 6 users with their username and score
-* The web app shall display a worldwide feed, showing real-time updates of user scores
-* Users shall be able to view their friend's scoreboard and feed
-* The scoreboard shall be sorted by score, with longest streak as a tiebreaker, and then alphabetically by username
-* The web app shall display a "Show All Rankings" button, which shall dynamically load all user rankings on the same page
+1. The Notification Microservice shall provide a secure and scalable way to send and receive notifications, and shall support multiple notification types, including email, SMS, and in-app notifications.
+2. The Notification Microservice shall implement a notification filtering and sorting feature that allows users to filter and sort notifications based on different criteria, including notification type, date, and user ID.
+3. The Notification Microservice shall provide a notification export feature that allows users to export notifications in a variety of formats, including CSV and JSON.
+4. The Notification Microservice shall implement a notification import feature that allows users to import notifications from external sources, including CSV and JSON files.
+5. The Notification Microservice shall provide a notification configuration feature that allows administrators to configure notification settings, including the notification type, frequency, and content.
+6. The Notification Microservice shall implement a notification analytics feature that provides insights and statistics on notification performance and user engagement.
+7. The Notification Microservice shall provide a notification templating feature that allows administrators to create custom notification templates using a variety of variables and placeholders.
+8. The Notification Microservice shall implement a notification scheduling feature that allows users to schedule notifications to be sent at a later time or date.
 
-**5. Notifications**
+**Friendship Microservice:**
 
-* The web app shall provide a notifications system, which shall display a count of unread notifications
-* Users shall be able to opt-in to receive email notifications for all events (friend requests, new high scores, streak milestones)
-* Email notifications shall be sent to users who have opted-in, with a summary of the event and a link to the relevant page
+1. The Friendship Microservice shall provide a secure and scalable way to manage friendships, and shall support multiple friendship types, including one-way and two-way friendships.
+2. The Friendship Microservice shall implement a friend request feature that allows users to send friend requests to other users, and shall provide a way to configure the friend request settings, including the request expiration time and notification frequency.
+3. The Friendship Microservice shall provide a friend list feature that allows users to view and manage their friends, and shall support multiple friend list types, including public and private friend lists.
+4. The Friendship Microservice shall implement a friend search feature that allows users to search for friends based on different criteria, including username, email address, and location.
+5. The Friendship Microservice shall provide a friend ranking feature that allows users to rank their friends based on different criteria, including friendship duration and interaction frequency.
+6. The Friendship Microservice shall implement a friend notification feature that sends notifications to users when they receive a friend request or when a friend is added or removed from their friend list.
+7. The Friendship Microservice shall provide a friend configuration feature that allows administrators to configure friend settings, including the friend request expiration time and notification frequency.
+8. The Friendship Microservice shall implement a friend analytics feature that provides insights and statistics on friendship performance and user engagement.
 
-**6. Design and Accessibility**
+**Web App Microservice:**
 
-* The web app shall be optimized for mobile web, with a responsive design that adapts to different screen sizes and devices
-* The web app shall match the design elements of wordle.com as closely as possible, including color scheme, typography, and layout
-* The web app shall be accessible to users with disabilities, following Web Content Accessibility Guidelines (WCAG 2.1)
+1. The Web App Microservice shall provide a secure and scalable way to render and serve web pages, and shall support multiple web page types, including HTML, CSS, and JavaScript.
+2. The Web App Microservice shall implement a user interface and user experience (UI/UX) that is intuitive and easy to use, and shall provide a way to configure the UI/UX settings, including the layout, theme, and font.
+3. The Web App Microservice shall provide a client-side rendering feature that allows web pages to be rendered on the client-side, and shall support multiple client-side rendering frameworks, including React and Angular.
+4. The Web App Microservice shall implement a server-side rendering feature that allows web pages to be rendered on the server-side, and shall support multiple server-side rendering frameworks, including Node.js and Ruby on Rails.
+5. The Web App Microservice shall provide a caching feature that allows web pages to be cached on the client-side and server-side, and shall support multiple caching frameworks, including Redis and Memcached.
+6. The Web App Microservice shall implement a security feature that provides a secure way to authenticate and authorize users, and shall support multiple security frameworks, including OAuth and JWT.
+7. The Web App Microservice shall provide a logging and monitoring feature that provides insights and statistics on web page performance and user engagement, and shall support multiple logging and monitoring frameworks, including Loggly and New Relic.
+8. The Web App Microservice shall implement a deployment feature that allows web pages to be deployed to a production environment, and shall support multiple deployment frameworks, including Docker and Kubernetes.
 
-**7. Data Storage**
+**API Gateway Microservice:**
 
-* The web app shall store data in a relational database
-* The web app shall use a data buffer and locking mechanism to ensure data consistency and prevent corruption
-* The web app shall handle data concurrency and synchronization to prevent data loss or corruption
-
-**8. Error Handling**
-
-* The web app shall display an error message if a user inputs a malformed score, explaining the correct format
-* The web app shall not display an error message if a user's account is not linked to Facebook
-* The web app shall handle other errors and exceptions, displaying user-friendly error messages and providing guidance on how to resolve the issue
-
-**9. Security**
-
-* The web app shall use industry-standard encryption and password hashing to store user authentication data securely
-* The web app shall validate user input to prevent SQL injection and cross-site scripting (XSS) attacks
-* The web app shall use secure protocols for data transmission, such as HTTPS
-
-**10. Performance**
-
-* The web app shall be optimized for performance, with fast page loads and responsive user interactions
-* The web app shall use caching and other optimization techniques to minimize the load on the server and improve user experience
-
-**11. Testing**
-
-* The web app shall be thoroughly tested for functionality, security, and performance
-* The web app shall be tested on different devices and browsers to ensure cross-browser compatibility
-* The web app shall be tested for accessibility, following Web Content Accessibility Guidelines (WCAG 2.1)
+1. The API Gateway Microservice shall provide a secure and scalable way to manage API endpoints, and shall support multiple API endpoint types, including REST and GraphQL.
+2. The API Gateway Microservice shall implement a routing feature that allows API requests to be routed to the correct API endpoint, and shall support multiple routing frameworks, including NGINX and Apache.
+3. The API Gateway Microservice shall provide a security feature that provides a secure way to authenticate and authorize API requests, and shall support multiple security frameworks, including OAuth and JWT.
+4. The API Gateway Microservice shall implement a caching feature that allows API responses to be cached on the client-side and server-side, and shall support multiple caching frameworks, including Redis and Memcached.
+5. The API Gateway Microservice shall provide a logging and monitoring feature that provides insights and statistics on API performance and user engagement, and shall support multiple logging and monitoring frameworks, including Loggly and New Relic.
+6. The API Gateway Microservice shall implement a deployment feature that allows API endpoints to be deployed to a production environment, and shall support multiple deployment frameworks, including Docker and Kubernetes.
+7. The API Gateway Microservice shall provide a documentation feature that provides API documentation and API keys, and shall support multiple documentation frameworks, including Swagger and API Blueprint.
+8. The API Gateway Microservice shall implement a analytics feature that provides insights and statistics on API performance and user engagement, and shall support multiple analytics frameworks, including Google Analytics and Mixpanel.

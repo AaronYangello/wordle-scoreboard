@@ -1,110 +1,111 @@
 # Wordle Scoreboard Database Design
 
-**1. Users Table**
+**Authentication Microservice Database:**
 
-* `id` (primary key, unique identifier for each user)
-* `username` (unique username chosen by the user)
-* `email` (email address associated with the user's account)
-* `facebook_id` (Facebook ID, if the user signed up with Facebook)
-* `password_hash` (hashed password for email sign-ups)
-* `created_at` (timestamp when the user account was created)
-* `updated_at` (timestamp when the user account was last updated)
+* **Users Table:**
+	+ id (primary key)
+	+ username
+       + facebook_id
+	+ email
+	+ password (hashed)
+	+ role (e.g. admin, user)
+* **Sessions Table:**
+	+ id (primary key)
+	+ user_id (foreign key referencing the Users table)
+	+ session_token
+	+ expires_at
+* **Roles Table:**
+	+ id (primary key)
+	+ role_name
 
-**2. Wordles Table**
+**Score Microservice Database:**
 
-* `id` (primary key, unique identifier for each Wordle)
-* `wordle_number` (unique identifier for each Wordle, e.g., 1, 2, 3, etc.)
-* `answer` (correct answer for the Wordle)
-* `created_at` (timestamp when the Wordle was created)
-* `updated_at` (timestamp when the Wordle was last updated)
+* **Scores Table:**
+	+ id (primary key)
+	+ user_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ score
+	+ game_id (foreign key referencing the Games table in the Game Microservice database)
+	+ created_at
+	+ updated_at
+* **Games Table:**
+	+ id (primary key)
+	+ game_name
+	+ created_at
+	+ updated_at
 
-**3. Scores Table**
+**Leaderboard Microservice Database:**
 
-* `id` (primary key, unique identifier for each score)
-* `user_id` (foreign key referencing the Users table)
-* `wordle_id` (foreign key referencing the Wordles table)
-* `score` (calculated score based on the number of guesses and streak bonus)
-* `guesses` (number of guesses taken to solve the puzzle)
-* `streak` (current streak of consecutive days with a correct solution)
-* `created_at` (timestamp when the score was recorded)
-* `updated_at` (timestamp when the score was last updated)
+* **Leaderboards Table:**
+	+ id (primary key)
+	+ game_id (foreign key referencing the Games table in the Game Microservice database)
+	+ leaderboard_name
+	+ leaderboard_type (e.g. daily, weekly, monthly)
+	+ created_at
+	+ updated_at
+* **Leaderboard Entries Table:**
+	+ id (primary key)
+	+ leaderboard_id (foreign key referencing the Leaderboards table)
+	+ user_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ score
+	+ rank
+	+ created_at
+	+ updated_at
 
-**4. Friendships Table**
+**Notification Microservice Database:**
 
-* `id` (primary key, unique identifier for each friendship)
-* `user_id` (foreign key referencing the Users table)
-* `friend_id` (foreign key referencing the Users table)
-* `status` (status of the friendship, e.g., "pending", "accepted", "declined")
-* `created_at` (timestamp when the friendship was created)
-* `updated_at` (timestamp when the friendship was last updated)
+* **Notifications Table:**
+	+ id (primary key)
+	+ user_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ notification_type (e.g. email, SMS)
+	+ notification_message
+	+ created_at
+	+ updated_at
+* **Notification Settings Table:**
+	+ id (primary key)
+	+ user_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ notification_type (e.g. email, SMS)
+	+ notification_frequency (e.g. daily, weekly, monthly)
+	+ created_at
+	+ updated_at
 
-**5. Notifications Table**
+**Friendship Microservice Database:**
 
-* `id` (primary key, unique identifier for each notification)
-* `user_id` (foreign key referencing the Users table)
-* `notification_type` (type of notification, e.g., "friend request", "new high score")
-* `message` (text message associated with the notification)
-* `read_at` (timestamp when the notification was read, or null if unread)
-* `created_at` (timestamp when the notification was created)
-* `updated_at` (timestamp when the notification was last updated)
+* **Friendships Table:**
+	+ id (primary key)
+	+ user_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ friend_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ friendship_status (e.g. pending, accepted, rejected)
+	+ created_at
+	+ updated_at
+* **Friendship Requests Table:**
+	+ id (primary key)
+	+ user_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ friend_id (foreign key referencing the Users table in the Authentication Microservice database)
+	+ request_status (e.g. pending, accepted, rejected)
+	+ created_at
+	+ updated_at
 
-This updated design includes the Wordles table to store the Wordle number and associated answer for all previous days. The Scores table now references the Wordles table to associate each score with a specific Wordle.
+**Game Microservice Database:**
 
-## Entity-Relationship Diagram
-```
-+---------------+
-|  Users      |
-+---------------+
-|  id (PK)    |
-|  username    |
-|  email       |
-|  facebook_id |
-|  password_hash|
-+---------------+
-       |
-       | 1:N
-       v
-+---------------+
-|  Scores     |
-+---------------+
-|  id (PK)    |
-|  user_id (FK)|
-|  wordle_id (FK)|
-|  score       |
-|  guesses     |
-|  streak      |
-+---------------+
-       |
-       | 1:N
-       v
-+---------------+
-|  Wordles    |
-+---------------+
-|  id (PK)    |
-|  wordle_number|
-|  answer      |
-+---------------+
-       |
-       | 1:N
-       v
-+---------------+
-|  Friendships |
-+---------------+
-|  id (PK)    |
-|  user_id (FK)|
-|  friend_id (FK)|
-|  status      |
-+---------------+
-       |
-       | 1:N
-       v
-+---------------+
-|  Notifications|
-+---------------+
-|  id (PK)    |
-|  user_id (FK)|
-|  notification_type|
-|  message     |
-|  read_at     |
-+---------------+
-```
+* **Games Table:**
+	+ id (primary key)
+	+ game_name
+	+ game_type (e.g. Wordle, Crossword)
+	+ created_at
+	+ updated_at
+* **Game Settings Table:**
+	+ id (primary key)
+	+ game_id (foreign key referencing the Games table)
+	+ setting_name
+	+ setting_value
+	+ created_at
+	+ updated_at
+
+**Database Relationships:**
+
+* The Users table in the Authentication Microservice database has a one-to-many relationship with the Scores table in the Score Microservice database.
+* The Scores table in the Score Microservice database has a many-to-one relationship with the Games table in the Game Microservice database.
+* The Leaderboards table in the Leaderboard Microservice database has a one-to-many relationship with the Leaderboard Entries table.
+* The Leaderboard Entries table has a many-to-one relationship with the Leaderboards table and the Users table in the Authentication Microservice database.
+* The Notifications table in the Notification Microservice database has a many-to-one relationship with the Users table in the Authentication Microservice database.
+* The Friendships table in the Friendship Microservice database has a many-to-many relationship with the Users table in the Authentication Microservice database.
