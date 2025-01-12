@@ -16,16 +16,17 @@
 	* Provides APIs for retrieving top scores and rankings
 	* Uses the Score Service for data retrieval
 	* Technology: Node.js, Express.js, Redis
-4. **Notification Service**:
-	* Handles notifications for friend requests, new high scores, and other events
-	* Uses a message queue (e.g., RabbitMQ, Apache Kafka) for notification processing
-	* Provides APIs for sending and retrieving notifications
-	* Technology: Node.js, Express.js, RabbitMQ
-5. **Friendship Service**:
-	* Handles friend requests, acceptances, and rejections
-	* Provides APIs for creating, reading, updating, and deleting friendships
+4. **Followers Service**:
+	* Handles following and unfollowing actions without requiring approval
+	* Provides APIs for creating, reading, updating, and deleting follow relationships
 	* Uses the Authentication Service for user authentication
 	* Technology: Node.js, Express.js, Sequelize
+5. **Feed Service**:
+   * Provides a real-time feed of Wordle scores as they are entered
+   * Streams updates to subscribed users through WebSockets or Server-Sent Events (SSE)
+   * Uses the Score Service for retrieving and broadcasting scores
+   * Supports filtering feeds by followed users or specific criteria
+   * Technology: Node.js, Express.js, WebSockets/SSE, Redis
 6. **Web App Service**:
 	* Handles web app requests and responses
 	* Uses the Authentication Service for user authentication

@@ -54,25 +54,7 @@
 	* Review the leaderboard service for any issues or bugs
 	* Refactor the code to improve performance, readability, and maintainability
 
-**Phase 4: Notification Service (Estimated Time: 5-7 days)**
-
-1. **Requirements Gathering** (Estimated Time: 1 day)
-	* Gather requirements for the notification service
-	* Define the APIs and interfaces for the service
-	* Create a detailed requirements document for the service
-2. **Design and Development** (Estimated Time: 3 days)
-	* Design the notification service using a framework (e.g., Node.js, Express.js)
-	* Implement notification logic for friend requests, new high scores, and other events
-	* Test and debug the service
-3. **Testing and Deployment** (Estimated Time: 1 day)
-	* Write unit tests and integration tests for the notification service
-	* Deploy the service using a containerization platform (e.g., Docker) and orchestration tool (e.g., Kubernetes)
-	* Configure environment variables and dependencies
-4. **Review and Refactoring** (Estimated Time: 1 day)
-	* Review the notification service for any issues or bugs
-	* Refactor the code to improve performance, readability, and maintainability
-
-**Phase 5: Friendship Service (Estimated Time: 5-7 days)**
+**Phase 5: Followers Service (Estimated Time: 5-7 days)**
 
 1. **Requirements Gathering** (Estimated Time: 1 day)
 	* Gather requirements for the friendship service

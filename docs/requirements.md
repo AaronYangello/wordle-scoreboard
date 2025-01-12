@@ -24,36 +24,32 @@
 
 **Leaderboard Microservice:**
 
-1. The Leaderboard Microservice shall provide a secure and scalable way to display and manage leaderboards, and shall support multiple leaderboard types, including global and local leaderboards.
-2. The Leaderboard Microservice shall implement a leaderboard calculation algorithm that calculates the leaderboard rankings based on user scores, and shall provide a way to configure the algorithm to support different scoring systems.
-3. The Leaderboard Microservice shall provide a leaderboard filtering and sorting feature that allows users to filter and sort leaderboards based on different criteria, including score type, date, and user ID.
-4. The Leaderboard Microservice shall implement a leaderboard export feature that allows users to export leaderboards in a variety of formats, including CSV and JSON.
-5. The Leaderboard Microservice shall provide a leaderboard import feature that allows users to import leaderboards from external sources, including CSV and JSON files.
-6. The Leaderboard Microservice shall implement a leaderboard notification feature that sends notifications to users when they are added to or removed from a leaderboard.
-7. The Leaderboard Microservice shall provide a leaderboard configuration feature that allows administrators to configure leaderboard settings, including the leaderboard type, score type, and ranking algorithm.
-8. The Leaderboard Microservice shall implement a leaderboard analytics feature that provides insights and statistics on leaderboard performance and user engagement.
+1. The Leaderboard Microservice shall provide a secure and scalable way to display and manage leaderboards, and shall support multiple leaderboard types, including global leaderboards and a leaderboard of those people which the user is following.
+2. The Leaderboard Microservice shall implement a leaderboard calculation algorithm that calculates the leaderboard rankings based on user scores.
+3. The Leaderboard Microservice shall provide a leaderboard filtering and sorting feature that allows users to filter and sort leaderboards based on different criteria, including score and user ID.
+4. The Leaderboard Microservice shall update each time a score is entered in the Score Microservice.
 
-**Notification Microservice:**
+# Followers Microservice Requirements
 
-1. The Notification Microservice shall provide a secure and scalable way to send and receive notifications, and shall support multiple notification types, including email, SMS, and in-app notifications.
-2. The Notification Microservice shall implement a notification filtering and sorting feature that allows users to filter and sort notifications based on different criteria, including notification type, date, and user ID.
-3. The Notification Microservice shall provide a notification export feature that allows users to export notifications in a variety of formats, including CSV and JSON.
-4. The Notification Microservice shall implement a notification import feature that allows users to import notifications from external sources, including CSV and JSON files.
-5. The Notification Microservice shall provide a notification configuration feature that allows administrators to configure notification settings, including the notification type, frequency, and content.
-6. The Notification Microservice shall implement a notification analytics feature that provides insights and statistics on notification performance and user engagement.
-7. The Notification Microservice shall provide a notification templating feature that allows administrators to create custom notification templates using a variety of variables and placeholders.
-8. The Notification Microservice shall implement a notification scheduling feature that allows users to schedule notifications to be sent at a later time or date.
+1. The Followers Microservice shall provide a secure and scalable way to manage follower relationships, supporting a one-way following model without requiring approval.
+2. The Followers Microservice shall allow users to follow or unfollow other users seamlessly and provide a way to configure settings, including notification preferences.
+3. The Followers Microservice shall provide a followers list feature that allows users to view and manage their followers, as well as the users they are following, with support for filtering and sorting.
+4. The Followers Microservice shall implement a search feature that allows users to search for other users to follow based on different criteria, including username, email address, and location.
+5. The Followers Microservice shall provide a follower analytics feature that offers insights and statistics on followers, including growth trends, engagement levels, and interaction frequency.
+6. The Followers Microservice shall implement a notification feature that sends alerts to users when they gain a new follower or when a user they follow posts an update (if applicable).
+7. The Followers Microservice shall allow administrators to configure global settings for the service, including notification preferences and rate limits on follow actions.
+8. The Followers Microservice shall ensure all API endpoints are secure, scalable, and optimized for performance to handle a large number of concurrent follow relationships.
 
-**Friendship Microservice:**
+**Feed Microservice:**
 
-1. The Friendship Microservice shall provide a secure and scalable way to manage friendships, and shall support multiple friendship types, including one-way and two-way friendships.
-2. The Friendship Microservice shall implement a friend request feature that allows users to send friend requests to other users, and shall provide a way to configure the friend request settings, including the request expiration time and notification frequency.
-3. The Friendship Microservice shall provide a friend list feature that allows users to view and manage their friends, and shall support multiple friend list types, including public and private friend lists.
-4. The Friendship Microservice shall implement a friend search feature that allows users to search for friends based on different criteria, including username, email address, and location.
-5. The Friendship Microservice shall provide a friend ranking feature that allows users to rank their friends based on different criteria, including friendship duration and interaction frequency.
-6. The Friendship Microservice shall implement a friend notification feature that sends notifications to users when they receive a friend request or when a friend is added or removed from their friend list.
-7. The Friendship Microservice shall provide a friend configuration feature that allows administrators to configure friend settings, including the friend request expiration time and notification frequency.
-8. The Friendship Microservice shall implement a friend analytics feature that provides insights and statistics on friendship performance and user engagement.
+1. The Feed Microservice shall provide a secure and scalable way to deliver real-time updates of Wordle scores as they are entered by users.
+2. The Feed Microservice shall implement a real-time streaming mechanism using WebSockets or Server-Sent Events (SSE) to broadcast score updates to subscribed users.
+3. The Feed Microservice shall support filtering and customization of feeds, allowing users to view updates from specific users they follow or based on other criteria.
+4. The Feed Microservice shall provide a history feature that allows users to view past updates in their feed within a configurable time frame.
+5. The Feed Microservice shall implement a notification feature that informs users of significant updates, such as breaking records or top leaderboard achievements.
+6. The Feed Microservice shall allow administrators to configure feed settings, including data retention policies, broadcast intervals, and filtering options.
+7. The Feed Microservice shall ensure all API endpoints and streaming channels are secure, scalable, and optimized for performance to handle a high volume of concurrent updates.
+8. The Feed Microservice shall integrate seamlessly with the Score, Followers, and Leaderboard Microservices to retrieve and broadcast relevant data.
 
 **Web App Microservice:**
 
