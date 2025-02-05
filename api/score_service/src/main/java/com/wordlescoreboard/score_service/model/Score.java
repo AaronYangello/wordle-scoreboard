@@ -17,7 +17,7 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scoreId;
 
-    private Long userId;
+    private String username;
     private Long gameId;
     private Double score;
 
@@ -31,12 +31,12 @@ public class Score {
         this.scoreId = scoreId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getusername() {
+        return username;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setusername(String username) {
+        this.username = username;
     }
 
     public Long getGameId() {

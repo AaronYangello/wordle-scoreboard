@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class FeedService {
@@ -18,12 +17,16 @@ public class FeedService {
     }
 
     public Feed createFeed(String ownerId) {
-        Feed feed = new Feed(UUID.randomUUID().toString(), ownerId);
+        Feed feed = new Feed(ownerId);
         return feedDao.save(feed);
     }
 
     public List<Feed> getAllFeeds() {
         return feedDao.findAll();
+    }
+
+    public List<Feed> getAllFeedsForUser(String userId) {
+        return feedDao.findByUserIdsContains(userId);
     }
 
     public Optional<Feed> getFeed(String feedId) {

@@ -2,10 +2,7 @@ package com.wordlescoreboard.feed_service.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Feed {
@@ -18,9 +15,10 @@ public class Feed {
     private List<Post> posts = new ArrayList<>();
 
     // Constructors, getters, and setters
-    public Feed(String feedId, String ownerId) {
-        this.feedId = feedId;
+    public Feed(String ownerId) {
+        this.feedId = UUID.randomUUID().toString();
         this.ownerId = ownerId;
+        this.userIds.add(ownerId);
     }
 
     public Feed() {}
@@ -43,6 +41,10 @@ public class Feed {
 
     public Set<String> getUserIds() {
         return userIds;
+    }
+
+    public List<String> getListUserIds() {
+        return new ArrayList<String>(userIds);
     }
 
     public void setUserIds(Set<String> userIds) {

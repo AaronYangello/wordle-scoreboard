@@ -26,12 +26,13 @@ public class ScoreService {
     @Autowired
     private UserStreakDao userStreakDao;
 
-    public Score createScore(String wordleShareText, Long userId) {
-        Score score = createScoreFromWordleShare(wordleShareText, userId);
+    public Score createScore(String wordleShareText, String username) {
+        Score score = createScoreFromWordleShare(wordleShareText, username);
+
         return scoreDao.save(score);
     }
 
-    public Score createScoreFromWordleShare(String wordleShareText, Long userId) {
+    public Score createScoreFromWordleShare(String wordleShareText, String username) {
         logger.debug("Wordle Text: {}", wordleShareText);
 
         wordleShareText = wordleShareText.replace("\\n", "\n");
@@ -45,16 +46,16 @@ public class ScoreService {
             throw new IllegalArgumentException("Game ID is for a previous day. Please enter the score for game " + todaysGameId.toString());
         }
         // Check if a score already exists for this user and game
-        Optional<Score> existingScore = scoreDao.findByUserIdAndGameId(userId, gameId);
+        Optional<Score> existingScore = scoreDao.findByUsernameAndGameId(username, gameId);
         if (existingScore.isPresent()) {
             throw new IllegalArgumentException("Score for this game already exists for the user.");
         }
 
         // Fetch user streak
-        UserStreak userStreak = userStreakDao.findById(userId)
+        UserStreak userStreak = userStreakDao.findByUsername(username)
                 .orElseGet(() -> {
                     UserStreak newStreak = new UserStreak();
-                    newStreak.setUserId(userId);
+                    newStreak.setUsername(username);
                     newStreak.setStreak(0);
                     return userStreakDao.save(newStreak);
                 });
@@ -67,7 +68,7 @@ public class ScoreService {
 
         // Create score entity
         Score score = new Score();
-        score.setUserId(userId);
+        score.setusername(username);
         score.setGameId(Long.parseLong(header.split(" ")[1].replace(",", "")));
         score.setScore(totalScore);
         return score;
@@ -173,8 +174,8 @@ public class ScoreService {
         return scoreDao.findById(scoreId);
     }
 
-    public List<Score> getScoresByUserId(Long userId) {
-        return scoreDao.findByUserId(userId);
+    public List<Score> getScoresByUsername(String username) {
+        return scoreDao.findByUsername(username);
     }
 
     public List<Score> getScoresByGameId(Long gameId) {

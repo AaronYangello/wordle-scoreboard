@@ -1,16 +1,16 @@
 package com.wordlescoreboard.score_service.dto;
 
 public class CreateScoreRequest {
-    private Long userId;
+    private String username;
     private String wordleShareText;
 
     // Getters and Setters
-    public Long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        this.username = username;
     }
 
     public String getWordleShareText() {

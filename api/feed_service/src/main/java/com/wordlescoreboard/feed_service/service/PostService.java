@@ -18,19 +18,18 @@ public class PostService {
         this.postDao = postDao;
     }
 
-    public Post createPost(Feed feed, Post newPost) {
+    public Post createPost(Post newPost) {
         newPost.setPostId(UUID.randomUUID().toString());
         newPost.setCreatedAt(LocalDateTime.now());
-        newPost.setFeed(feed);
         return postDao.save(newPost);
-    }
-
-    public List<Post> getPosts(Feed feed) {
-        return feed.getPosts();
     }
 
     public Optional<Post> getPost(String postId) {
         return postDao.findById(postId);
+    }
+
+    public List<Post> getPostsForUser(String userId){
+        return postDao.findByPostingUserId(userId);
     }
 
     public Post updatePost(Post post, Post updatedPost) {
@@ -41,5 +40,13 @@ public class PostService {
 
     public void deletePost(Post post) {
         postDao.delete(post);
+    }
+
+    public List<Post> getPosts(Feed feed){
+        return postDao.findByPostingUserIdInOrderByCreatedAt(feed.getListUserIds());
+    }
+
+    public List<Post> getPosts(List<String> userIds){
+        return postDao.findByPostingUserIdInOrderByCreatedAt(userIds);
     }
 }

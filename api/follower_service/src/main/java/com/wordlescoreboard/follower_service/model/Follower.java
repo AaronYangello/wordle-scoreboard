@@ -13,8 +13,6 @@ public class Follower {
     private Long followerId;
     private Long followeeId;
 
-    // Getters and Setters
-
     public Long getId() {
         return id;
     }

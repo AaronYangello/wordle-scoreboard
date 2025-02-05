@@ -7,12 +7,14 @@ import jakarta.persistence.*;
 public class UserStreak {
 
     @Id
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
     private int streak;
 
     // Getters and Setters
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
     public int getStreak() { return streak; }
     public void setStreak(int streak) { this.streak = streak; }
 }

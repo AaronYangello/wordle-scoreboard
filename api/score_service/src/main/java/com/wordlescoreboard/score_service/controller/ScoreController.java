@@ -6,6 +6,7 @@ import com.wordlescoreboard.score_service.model.Score;
 import com.wordlescoreboard.score_service.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,9 @@ public class ScoreController {
     }
 
     @PostMapping
+    @PreAuthorize("isTokenOwner(#requestBody.getUsername())")
     public ResponseEntity<Score> createScore(@RequestBody CreateScoreRequest request) {
-        return ResponseEntity.ok(scoreService.createScore(request.getWordleShareText(), request.getUserId()));
+        return ResponseEntity.ok(scoreService.createScore(request.getWordleShareText(), request.getUsername()));
     }
 
     @GetMapping("/{scoreId}")
@@ -35,8 +37,8 @@ public class ScoreController {
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<List<Score>> getScoresByUserId(@PathVariable Long userId) {
-        return ResponseEntity.ok(scoreService.getScoresByUserId(userId));
+    public ResponseEntity<List<Score>> getScoresByUserId(@PathVariable String username) {
+        return ResponseEntity.ok(scoreService.getScoresByUsername(username));
     }
 
     @GetMapping("/games/{gameId}")

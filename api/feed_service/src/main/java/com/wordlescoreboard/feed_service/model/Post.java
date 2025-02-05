@@ -8,9 +8,6 @@ import java.util.List;
 public class Post {
     @Id
     private String postId;
-    @ManyToOne
-    @JoinColumn(name = "feed_id")
-    private Feed feed;
     private String postingUserId;
     private String content;
     @ElementCollection
@@ -24,14 +21,6 @@ public class Post {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    public Feed getFeed() {
-        return feed;
-    }
-
-    public void setFeed(Feed feed) {
-        this.feed = feed;
     }
 
     public String getPostingUserId() {
