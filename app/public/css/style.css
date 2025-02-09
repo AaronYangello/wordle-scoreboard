@@ -1,0 +1,517 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  :root {
+    --green: #6aaa64;
+    --green-4: #538d4e;
+    --beta-blue: #4f85e5;
+    --wordle-high-contrast-green: #58a351;
+    --wordleGray: #d3d6da;
+    --strandsGreen: #c0ddd9;
+    --spellingBeeYellow: #f7da21;
+    --miniCrosswordBlue: #95befa;
+    --connectionsPeriwinkle: #b4a8ff;
+    --sudoku-orange: #fb9b00;
+    --tiles-green: #b5e352;
+    --dailyCrosswordBlue: #6493e6;
+    --yellow-3: #c9b458;
+    --yellow-4: #b59f3b;
+    --newsGray-10: #dfdfdf;
+    --newsGray-100: #121212;
+    --newsGray-85: #363636;
+    --gray-3: #ccc;
+    --gray-4: #dcdcdc;
+    --gray-6: #f4f4f4;
+    --gray-13: #d3d6da;
+    --gray-18: #787c7e;
+    --gray-19: #878a8c;
+    --gray-20: #edeff1;
+    --gray-21: #f6f7f8;
+    --gray-22: #e3e3e1;
+    --gray-23: #a6a6a6;
+    --gray-24: #818384;
+    --gray-25: #565758;
+    --gray-26: #3a3a3c;
+    --gray-27: #424242;
+    --gray-28: #59595a;
+    --gray-29: #afafaf;
+    --black: #000;
+    --white: #fff;
+    --newsDarkContentPrimary: #f8f8f8;
+    --wordleBlack: #212121;
+    --wordleBlack-2: #272729;
+    --wordleBlack-3: #1a1a1b;
+    --wordleBlack-4: #121213;
+    --wordleBlack-5: #2f2f31;
+    --linkBlue: #346eb7;
+    --linkDarkBlue: #6ba1dd;
+    --orange: #f5793a;
+    --blue: #85c0f9;
+    --outlineBlue: #2671dc;
+    --svg-arrow-fill: var(--white);
+    --svg-arrow-stroke: var(--black);
+    --svg-arrow-fill-hover: var(--black);
+    --svg-arrow-stroke-hover: var(--white)
+}
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    width: 90%;
+    margin: auto;
+    --key-bg: var(--wordleGray);
+    --key-text-color:var(--black);
+  }
+  /* Dark theme base styles */
+  body.dark-theme {
+    background-color: #222;
+    color: #eee;
+  }
+  body.dark-theme header {
+    border-bottom: 1px solid #444;
+  }
+  body.dark-theme .top-controls {
+    border-bottom: 1px solid #444;
+  }
+  body.dark-theme .score-submit {
+    background-color: #333;
+    border-bottom: 1px solid #444;
+  }
+  body.dark-theme .score-submit textarea {
+    background-color: #444;
+    border: 1px solid #555;
+    color: #eee;
+  }
+  body.dark-theme .toggle button {
+    background-color: #555;
+    color: #eee;
+  }
+  body.dark-theme .toggle button.active {
+    background-color: #777;
+  }
+  body.dark-theme .gear-menu {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #eee;
+  }
+  body.dark-theme .leaderboard-row {
+    border-bottom: 1px solid #444;
+  }
+  body.dark-theme .leaderboard-row:hover {
+    background-color: #333;
+  }
+  body.dark-theme .details {
+    background-color: #333;
+    border-top: 1px solid #444;
+  }
+  body.dark-theme .news-feed {
+    background-color: #222;
+    border-top: 1px solid #444;
+  }
+  body.dark-theme footer {
+    border-top: 1px solid #444;
+    background-color: #222;
+    color: #aaa;
+  }
+  body.dark-theme .modal-content {
+    background-color: #333;
+    color: #eee;
+    border: 1px solid #444;
+  }
+
+  .content {
+    max-width: 1024px;
+    min-width: 760px;
+    margin: auto;
+  }
+  /* Header */
+  header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  /* Replace h1 logo with an image and center it */
+  #logo {
+    display: block;
+    margin: 0 auto;
+    max-height: 50px;
+  }
+  /* Top Controls */
+  .top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  .icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4em;
+    position: relative;
+  }
+  /* Gear menu (context menu for the gear icon) */
+  .gear-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+    min-width: 180px;
+    padding: 10px;
+  }
+  .gear-menu label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+  .gear-menu input[type="checkbox"] {
+    margin-left: 10px;
+  }
+  /* Streak display */
+  .streak {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  /* Modernized Score Submission Area */
+  .score-submit {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .score-submit h2 {
+    margin-bottom: 12px;
+    font-size: 1.4em;
+    text-align: center;
+  }
+  .score-submit p {
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    text-align: center;
+  }
+  .score-submit textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  .score-submit button {
+    display: block;
+    margin: 12px auto 0;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    background-color: #6aaa64;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .score-submit button:hover {
+    background-color: #5a9a54;
+  }
+  /* Leaderboard Section */
+  .leaderboard {
+    padding: 20px;
+    margin: auto;
+  }
+  .leaderboard-row .rank {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .leaderboard-row .username {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;  /* Ensure inner content (like Wordle boxes) are vertically centered */
+    gap: 4px;
+  }
+  .leaderboard-row .score {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  /* Center the toggle container */
+  .leaderboard .toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .toggle {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .toggle button {
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+  }
+  .toggle button.active {
+    background-color: #ccc;
+  }
+  /* Adjust leaderboard row to pack columns closely */
+  .leaderboard-row {
+    display: flex;
+    align-items: center;  /* Vertically center items */
+    gap: 20px;            /* Adjust gap as needed */
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .leaderboard-row:hover {
+    background-color: #fafafa;
+  }
+  .wordle-box {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  /* Color classes for the Wordle boxes */
+  .wordle-box.green {
+    background-color: #6aaa64;
+    border-color: #6aaa64;
+    color: #fff;
+  }
+  .wordle-box.yellow {
+    background-color: #c9b458;
+    border-color: #c9b458;
+    color: #fff;
+  }
+  .wordle-box.gray {
+    background-color: #787c7e;
+    border-color: #787c7e;
+    color: #fff;
+  }
+  .wordle-box.white {
+    background-color: #f8f9fa;
+    border-color: #787c7e;
+    color: #fff;
+  }
+  /* Dropdown details (hidden by default) */
+  .details {
+    display: none;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+  }
+  .show-more {
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    color: #0073e6;
+  }
+  .show-more:hover {
+    text-decoration: underline;
+  }
+  /* Social Media Style News Feed Section */
+  .news-feed {
+    padding: 20px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .news-feed h2 {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .news-item {
+    background-color: #f1f3f5;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    transition: background-color 0.2s;
+  }
+  .news-item:hover {
+    background-color: #e9ecef;
+  }
+  /* Footer */
+  footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
+    border-top: 1px solid #ddd;
+  }
+  .coffee-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #ff6f61;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  .news-feed {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  /* New Post Area */
+  .new-post {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  .new-post label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  .new-post textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    resize: none;
+    font-size: 14px;
+  }
+  .new-post button {
+    margin-top: 10px;
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .new-post button:hover {
+    background-color: #165ecb;
+  }
+  /* Feed Container and Fading Effect */
+  .feed-container {
+    position: relative;
+    max-height: 400px; /* Adjust height as needed */
+    overflow-y: auto;
+    padding: 15px;
+  }
+  /* The gradient overlay creates the fading effect at the bottom */
+  .feed-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Height of fade effect */
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    pointer-events: none;
+  }
+  /* Post Styling */
+  .post {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  .post:last-child {
+    border-bottom: none;
+  }
+  .post-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+  }
+  .post-content {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .post-btn{
+    font-family: "nyt-franklin";
+    font-size: 1.25em;
+    font-weight: bold;
+    border: 0;
+    padding: 0;
+    margin: 0 6px 0 0;
+    border-radius: 4px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: var(--key-bg);
+    color: var(--key-text-color);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: rgba(0,0,0,.3);
+  }
